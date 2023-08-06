@@ -15,6 +15,6 @@ func NewProductBrandResponse(productBrand *entity.ProductBrand) *ProductBrandRes
 	return &ProductBrandResponse{
 		ID:      productBrand.ID,
 		Name:    productBrand.Name,
-		Suplier: NewSuplierResponse(&productBrand.Suplier),
+		Suplier: NewSuplierResponse(&productBrand.Suplier), // Menggunakan pointer dari productBrand.Suplier
 	}
 }
