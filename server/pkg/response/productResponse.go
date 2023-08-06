@@ -15,6 +15,6 @@ func NewProductResponse(product *entity.Product) *ProductResponse {
 	return &ProductResponse{
 		ID:           product.ID,
 		Name:         product.Name,
-		ProductBrand: NewProductBrandResponse(&product.ProductBrand.Name),
+		ProductBrand: product.ProductBrand.Name,
 	}
 }
