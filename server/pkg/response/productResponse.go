@@ -13,8 +13,12 @@ type ProductResponse struct {
 
 func NewProductResponse(product *entity.Product) *ProductResponse {
 	return &ProductResponse{
-		ID:           product.ID,
-		Name:         product.Name,
-		ProductBrand: product.ProductBrand.Name,
+		ID:             product.ID,
+		Name:           product.Name,
+		ProductBrandID: product.ProductBrandID,
+		ProductBrand: &ProductBrandResponse{
+			ID:   product.ProductBrand.ID,
+			Name: product.ProductBrand.Name,
+		},
 	}
 }

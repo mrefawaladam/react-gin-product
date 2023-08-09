@@ -15,7 +15,7 @@ func NewProductRepository(db *gorm.DB) *ProductRepository {
 
 func (r *ProductRepository) GetProductByID(productID uint) (*entity.Product, error) {
 	var product entity.Product
-	if err := r.DB.Preload("ProductBrand").First(&product, productID).Error; err != nil {
+	if err := r.DB.Preload("ProductBrand").Preload("ProductBrand.Suplier").First(&product, productID).Error; err != nil {
 		return nil, err
 	}
 	return &product, nil

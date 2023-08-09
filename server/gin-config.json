@@ -1,0 +1,6 @@
+{
+    "port": 8080,
+    "app_path": "main.go",
+    "build_path": "bin",
+    "bin_name": "app"
+}

@@ -1,8 +1,11 @@
 package response
 
 import (
+	"github.com/go-playground/validator/v10"
 	"github.com/mrefawaladam/server/pkg/entity"
 )
+
+var validate = validator.New()
 
 type ProductBrandResponse struct {
 	ID        uint             `json:"id"`
@@ -15,6 +18,6 @@ func NewProductBrandResponse(productBrand *entity.ProductBrand) *ProductBrandRes
 	return &ProductBrandResponse{
 		ID:      productBrand.ID,
 		Name:    productBrand.Name,
-		Suplier: NewSuplierResponse(&productBrand.Suplier),
+		Suplier: NewSuplierResponse(&productBrand.Suplier), // Menggunakan pointer dari productBrand.Suplier
 	}
 }
