@@ -8,6 +8,8 @@ import (
 	"github.com/mrefawaladam/server/pkg/entity"
 	"github.com/mrefawaladam/server/pkg/response"
 	"github.com/mrefawaladam/server/pkg/usecase"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type ProductHandler interface {
@@ -18,12 +20,14 @@ type ProductHandler interface {
 type productHandler struct {
 	ProductUsecase      usecase.ProductUsecase
 	ProductBrandUsecase usecase.ProductBrandUsecase
+	Validator           *validator.Validate
 }
 
 func NewProductHandler(productUsecase usecase.ProductUsecase, productBrandUsecase usecase.ProductBrandUsecase) ProductHandler {
 	return &productHandler{
 		ProductUsecase:      productUsecase,
 		ProductBrandUsecase: productBrandUsecase,
+		Validator:           validator.New(),
 	}
 }
 
@@ -48,6 +52,11 @@ func (h *productHandler) CreateProduct(c *gin.Context) {
 	var product response.ProductResponse
 	if err := c.ShouldBindJSON(&product); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
+		return
+	}
+
+	if err := h.Validator.Struct(&product); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Validation error", "details": err.Error()})
 		return
 	}
 

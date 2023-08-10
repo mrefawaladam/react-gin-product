@@ -7,10 +7,14 @@ import (
 
 var validate = validator.New()
 
+func init() {
+	validate = validator.New()
+}
+
 type ProductBrandResponse struct {
 	ID        uint             `json:"id"`
-	Name      string           `json:"name"`
-	SuplierID uint             `json:"suplier_id"`
+	Name      string           `json:"name" validate:"required"`
+	SuplierID uint             `json:"suplier_id" validate:"required"`
 	Suplier   *SuplierResponse `json:"suplier"`
 }
 
